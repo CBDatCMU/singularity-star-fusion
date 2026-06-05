@@ -1,0 +1,47 @@
+Bootstrap: docker
+From: debian:bookworm
+
+%labels
+    MAINTAINER icaoberg, b0nn1eLa1
+    EMAIL icaoberg@psc.edu, bonniela@andrew.cmu.edu
+    SUPPORT help@psc.edu
+    REPOSITORY https://github.com/CBDatCMU/singularity-star-fusion
+    VERSION 1.15.1
+
+%environment
+    export LANGUAGE=en_US.UTF-8
+    export LC_ALL=C
+    export PERLLIB=$PERLLIB:/opt/STAR-Fusion-v1.15.1/PerlLib
+    export PERL5LIB=$PERL5LIB:/opt/STAR-Fusion-v1.15.1/PerlLib
+
+%post
+    export DEBIAN_FRONTEND=noninteractive
+    apt-get update -qq
+    apt-get -y install ca-certificates wget locales perl cpanminus build-essential libdb-dev libipc-run3-perl libgd-dev
+    locale-gen en_US.UTF-8
+    cpanm --notest Tie::Hash DB_File JSON::XS
+    #cpanm --notest Math::Round
+    #cpanm --notest Font::TTF::Font
+    #cpanm --notest Config::General
+    #cpanm --notest Clone
+    #cpanm --notest GD::Polyline
+    #cpanm --notest Math::Bezier
+    #cpanm --notest GD
+    #cpanm --notest List::MoreUtils
+    #cpanm --notest Params::Validate
+    #cpanm --notest Readonly
+    #cpanm --notest Math::VecStat
+    #cpanm --notest Statistics::Basic
+    #cpanm --notest Set::IntSpan
+    #cpanm --notest Regexp::Common
+    #cpanm --notest SVG
+    #cpanm --notest Text::Format
+    cd /opt
+    wget -nc https://github.com/STAR-Fusion/STAR-Fusion/releases/download/STAR-Fusion-v1.15.1/STAR-Fusion-v1.15.1.FULL.tar.gz
+    tar -xf STAR-Fusion-v1.15.1.FULL.tar.gz && rm -f STAR-Fusion-v1.15.1.FULL.tar.gz
+    ln -s $(pwd)/STAR-Fusion-v1.15.1/STAR-Fusion /usr/local/bin/STAR-Fusion
+    ln -s $(pwd)/STAR-Fusion-v1.15.1/FusionInspector/FusionInspector /usr/local/bin/FusionInspector
+    ln -s $(pwd)/STAR-Fusion-v1.15.1/FusionFilter/blast_and_promiscuity_filter.pl /usr/local/bin/blast_and_promiscuity_filter.pl
+    ln -s $(pwd)/STAR-Fusion-v1.15.1/FusionAnnotator/FusionAnnotator /usr/local/bin/FusionAnnotator
+    rm -rf /var/cache/apt/*
+
