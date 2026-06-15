@@ -41,7 +41,7 @@ Tools
 
 local package  = "star-fusion"
 local version  = "1.15.1"
-local root     = os.getenv("CONTAINERS_ROOT") or "/containers"
+local root     = os.getenv("CONTAINERS_ROOT") or "/shared/containers"
 local base     = pathJoin(root, package, version)
 
 conflict("star-fusion")
