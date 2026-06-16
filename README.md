@@ -16,9 +16,9 @@ Copy the
 * `SIF` file
 * and the `STAR-Fusion` script
 
-to `/containers/star-fusion/1.15.1`.
+to `/shared/containers/star-fusion/1.15.1`.
 
-Copy the file `modulefile.lua` to `/opt/ohpc/pub/modulefiles/star-fusion` as `1.15.1.lua`.
+Copy the file `modulefile.lua` to `/shared/containers/modulefiles/star-fusion` as `1.15.1.lua`.
 
 ## Building the image using the recipe
 
